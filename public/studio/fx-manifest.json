@@ -1,0 +1,7 @@
+{
+  "packageVersion": 8,
+  "sourceFingerprint": "fb1f602de3241ddbd085949a8030f9b344fa1d0d750ff2a5d23644d75709efb3",
+  "wasmSha256": "4dd461a3ddcb9b08cae65b3db2350266240dd90cc7107895e56647899fe439ee",
+  "target": "wasm32-wasi",
+  "compiler": "Zig 0.13.0"
+}

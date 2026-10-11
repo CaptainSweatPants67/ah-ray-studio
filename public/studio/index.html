@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AH-RAY Studio · Design light in space</title><meta name="description" content="Explore the AH-RAY Dual S3 effects package in a 3D LED room. Design effects, edit nodes, and save sessions directly in your browser."><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css"></head>
+<body><noscript><p class="no-script">Studio needs JavaScript and WebAssembly enabled to preview effects.</p></noscript>
+  <header><div class="brand"><a class="mark" href="../" aria-label="AH-RAY home">A↗</a><div><strong>AH-RAY <span>Studio</span></strong><small>DESIGN LIGHT IN SPACE</small></div></div><div class="package"><span class="live-dot"></span><span id="package">Loading effects…</span><button id="rebuild" title="Reset the browser effects engine">Reload engine</button></div></header>
+  <div id="error" role="alert" hidden></div>
+  <main>
+    <aside class="controls">
+      <div class="section-top"><h2>Effect design</h2><span class="tag">LIVE</span></div>
+      <label>LIGHT EFFECT<input id="search" placeholder="Find an effect…" type="search" aria-label="Find an effect"><select id="effect" aria-label="Light effect"></select></label>
+      <label>SPATIAL MODE<select id="spatial" aria-label="Spatial mode"></select></label>
+      <div class="rule"></div>
+      <h3>Palette & intensity</h3>
+      <label>MAIN COLOR<select id="mainColor"></select></label>
+      <label id="customRgb" hidden>CUSTOM RGB<input id="rgb" type="color" value="#ff6000"></label>
+      <div id="mainDimmer"></div>
+      <label>ACCENT COLOR<select id="accentColor"></select></label>
+      <div id="accentDimmer"></div>
+      <div class="rule"></div><h3>Motion & shape</h3>
+      <div id="fade"></div><div id="expand"></div><div id="warp"></div>
+      <div class="rule"></div><h3>Timing & routing</h3>
+      <div id="bpm"></div><label>BEAT DIVISION<select id="beatDivision"></select></label>
+      <label class="check"><input type="checkbox" id="autoBeat" checked>Automatic BPM triggers</label>
+      <label>ZONE<select id="zone"></select></label>
+      <div class="rule"></div><h3>Focal point <span class="muted">room grid 1–9</span></h3>
+      <div id="stage" class="triple"></div>
+      <div class="rule"></div><h3>Design sessions</h3><div class="button-row"><button id="export">Save JSON</button><button id="import">Load JSON</button></div>
+      <input id="file" type="file" accept=".json,application/json" hidden>
+      <p class="hint">Your design stays in this browser. Save a JSON file to take it with you.</p>
+    </aside>
+    <section class="preview">
+      <div class="transport"><button id="play" class="primary">Pause</button><button id="step" title="Advance one simulated 60 Hz frame">Step</button><button id="restart">Restart</button><button id="trigger">Beat ↗</button><select id="speed" aria-label="Playback speed"><option value=".1">0.1×</option><option value=".25">0.25×</option><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><span id="time" class="clock">0.00 s</span><button id="blackout">Blackout</button></div>
+      <div class="scene-head"><div><h1 id="effectTitle">Studio</h1><p id="subtitle">Room simulation · each dot is one LED</p></div><div class="view-buttons"><button data-view="3d" class="selected">3D</button><button data-view="top">Top</button><button data-view="front">Front</button><button id="resetCamera" title="Reset camera">↺</button></div></div>
+      <div class="layout-toolbar"><span>ROOM MODE</span><button id="wallMode" title="The original layout: walls, floor and ceiling, 32 Dual nodes and 64 strips">Wall mode</button><button id="allMode" title="Walls plus 16 interior vertical columns and horizontal strips in X and Y at heights 3, 5 and 7: 49 Dual nodes and 98 strips">All mode</button><span id="layoutSummary">Custom layout</span></div>
+      <div class="scene"><canvas id="room" aria-label="Emulated LED strips with a gridded floor and back wall" tabindex="0"></canvas><div class="scene-tip">Drag to orbit · wheel to zoom · click a strip to edit</div><div id="pixelInfo" class="pixel-info" hidden></div><div id="sceneStatus" class="scene-status">LOADING ENGINE…</div></div>
+      <div class="strips-head"><h2>Output monitor</h2><span id="ledTotal"></span><button id="snapshot">Save frame PNG</button></div>
+      <div class="strip-monitor"><canvas id="strips" aria-label="Individual output LED pixel monitor"></canvas></div>
+      <div class="footer"><span id="fps">60 Hz simulation</span><span>RGB bytes from Dual S3 C++ / FastLED · display glow is optional</span><label class="check"><input id="glow" type="checkbox" checked> Glow</label></div>
+    </section>
+    <aside class="inspector">
+      <div class="section-top"><h2>Emulated nodes</h2><button id="addNode" title="Add a Dual S3 node">＋</button></div>
+      <div id="nodes"></div>
+      <div class="button-row layout-row"><button id="demoRoom">Room layout</button><button id="demoStrip">Single Dual</button></div>
+      <div class="rule"></div><div class="section-top"><h3 id="selectedTitle">Output A</h3><button id="removeNode" title="Remove selected node">Remove</button></div>
+      <div id="nodeFields"></div>
+      <h3>Virtual segments <span id="segmentCount" class="muted">0 / 8</span></h3>
+      <p class="hint">Offsets are zero based. Each segment has its own placement; the preview follows the firmware's current mapping.</p>
+      <div id="segments"></div><button id="addSegment" class="wide">＋ Add segment</button>
+      <div class="rule"></div><details><summary>Renderer details</summary><p class="hint" id="source"></p><p class="hint">Simulation runs at 60 Hz. It previews the effect and spatial pipeline; electrical behavior, LED calibration, and radio latency require hardware.</p></details>
+    </aside>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body></html>
